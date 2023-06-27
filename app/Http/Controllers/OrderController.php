@@ -46,4 +46,22 @@ class OrderController extends Controller
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         return view('checkout', ['snap' => $snapToken, 'dataOrder' => $order]);
     }
+
+    public function callback(Request $request)
+    {
+        $serverKey = config('midtrans.ServerKey');
+        $hasilHash = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
+
+        if ($hasilHash == $request->signature_key) {
+            if ($request->transaction_status == 'capture') {
+                $order = Order::find($request->order_id);
+                $order->update(['status' => 'Sudah Terbayar']);
+            }
+        }
+    }
+
+    public function invoice($id)
+    {
+        dd(Order::find($id));
+    }
 }

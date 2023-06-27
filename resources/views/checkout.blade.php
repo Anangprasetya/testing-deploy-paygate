@@ -67,7 +67,8 @@
             window.snap.pay('{{ $snap }}', {
                 onSuccess: function(result) {
                     /* You may add your own implementation here */
-                    alert("payment success!");
+                    // alert("payment success!");
+                    window.location.href = '/invoice/{{ $dataOrder->id }}'
                     console.log(result);
                 },
                 onPending: function(result) {

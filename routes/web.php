@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [OrderController::class, 'index']);
 Route::post('/order', [OrderController::class, 'order']);
+Route::get('/invoice/{id}', [OrderController::class, 'invoice']);
+// Route::post('/callback', [OrderController::class, 'callback']);
 
 // Route::get('/', function () {
 //     return view('welcome');
